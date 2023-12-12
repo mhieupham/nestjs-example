@@ -2,9 +2,8 @@ import { Controller, Get, Injectable } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { HomeService } from './home.service';
-import { AuthService } from '../auth/auth.service';
 import { InjectConnection } from '@nestjs/typeorm';
-import { Connection, DataSource } from 'typeorm';
+import { Connection } from 'typeorm';
 
 @ApiTags('Home')
 @Controller()
@@ -30,7 +29,7 @@ export class HomeController {
         [],
       );
     } finally {
-      slaveQueryRunner.release();
+      await slaveQueryRunner.release();
     }
 
     return userFromSlave[0].name;

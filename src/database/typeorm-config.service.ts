@@ -58,29 +58,33 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
           port: 5432,
           username: process.env.DATABASE_USERNAME,
           password: process.env.DATABASE_PASSWORD,
-          database: process.env.DATABASE_NAME
+          database: process.env.DATABASE_NAME,
         },
-        slaves: [{
-          host: process.env.DATABASE_HOST1,
-          port: 5432,
-          username: process.env.DATABASE_USERNAME,
-          password: process.env.DATABASE_PASSWORD,
-          database: process.env.DATABASE_NAME
-        }, {
-          host: process.env.DATABASE_HOST1,
-          port: 5432,
-          username: process.env.DATABASE_USERNAME,
-          password: process.env.DATABASE_PASSWORD,
-          database: process.env.DATABASE_NAME
-        },{
-          host: process.env.DATABASE_HOST1,
-          port: 5432,
-          username: process.env.DATABASE_USERNAME,
-          password: process.env.DATABASE_PASSWORD,
-          database: process.env.DATABASE_NAME
-        }],
-        selector: "RR"
-      }
+        slaves: [
+          {
+            host: process.env.DATABASE_HOST1,
+            port: 5432,
+            username: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
+          },
+          {
+            host: process.env.DATABASE_HOST1,
+            port: 5432,
+            username: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
+          },
+          {
+            host: process.env.DATABASE_HOST1,
+            port: 5432,
+            username: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
+          },
+        ],
+        selector: 'RR',
+      },
     } as TypeOrmModuleOptions;
   }
 }
