@@ -1,22 +1,19 @@
 FROM node:20.9.0-alpine
 
-RUN apk add --no-cache bash
-RUN npm i -g @nestjs/cli typescript ts-node
-
-COPY package*.json /tmp/app/
-RUN cd /tmp/app && npm install
-
-COPY . /usr/src/app
-RUN cp -a /tmp/app/node_modules /usr/src/app
-COPY ./wait-for-it.sh /opt/wait-for-it.sh
-RUN chmod +x /opt/wait-for-it.sh
-COPY ./startup.dev.sh /opt/startup.dev.sh
-RUN chmod +x /opt/startup.dev.sh
-RUN sed -i 's/\r//g' /opt/wait-for-it.sh
-RUN sed -i 's/\r//g' /opt/startup.dev.sh
-
+# Set working directory
 WORKDIR /usr/src/app
-RUN if [ ! -f .env ]; then cp env-example .env; fi
-RUN npm run build
 
-CMD ["/opt/startup.dev.sh"]
+# Copy package.json và package-lock.json vào image
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy tất cả mã nguồn của ứng dụng vào image
+COPY . .
+
+RUN npm run build
+COPY entrypoint.sh /entrypoint.sh
+# Expose cổng 3000 để truy cập ứng dụng
+EXPOSE 3000
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
